@@ -77,7 +77,8 @@ export default function HomePage() {
       loadTasks();
       return handleAPIError({ msg: "No search result found" });
     } else {
-      setTasks(results);
+      // setTasks(results);
+      setFilteredTasks(results);
     }
   };
 

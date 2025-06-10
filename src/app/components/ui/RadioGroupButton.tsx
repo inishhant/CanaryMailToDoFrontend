@@ -15,7 +15,7 @@ export function RadioGroupButton({
 }) {
   return (
     <RadioGroup
-      defaultValue={defaultValue}
+      value={defaultValue}
       className={cn(
         "gap-2",
         orientation === "vertical" ? "flex flex-col" : "flex flex-row"

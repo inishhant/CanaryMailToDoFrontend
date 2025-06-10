@@ -26,6 +26,7 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [filteredTasks, setFilteredTasks] = useState<Task[]>([]);
+  const [filterType, setFilterType] = useState<"all"|"completed"|"pending"| string>("all");
   const [editing, setEditing] = useState<Task | null>(null);
   const [openForm, setOpenForm] = useState(false);
   const [view, setViewMode] = useState<boolean>(false);
@@ -75,6 +76,7 @@ export default function HomePage() {
     const results = await searchTasks(cleaned);
     if (results.length === 0) {
       loadTasks();
+      setFilterType("all");
       return handleAPIError({ msg: "No search result found" });
     } else {
       // setTasks(results);
@@ -83,6 +85,7 @@ export default function HomePage() {
   };
 
   const handleFilter = (type: string) => {
+    setFilterType(type);
     const filteredTasks = tasks.filter((t) =>
       type === "completed"
         ? t.is_completed === true
@@ -129,7 +132,7 @@ export default function HomePage() {
         </div>
         <SearchBar onSearch={handleSearch} />
         <RadioGroupButton
-          defaultValue="all"
+          defaultValue={filterType}
           groupItems={filterButtons}
           orientation="horizontal"
           onChange={handleFilter}
